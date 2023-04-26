@@ -155,6 +155,7 @@ function checkBingo()
     clearInterval(intervalUpdateTimer);
     if (bingoThisCheck)
     {
+        clearTimeout(timeoutConfirmEnd);
         if (!bingo) updateTimerPrecise();
         bingo = true;
         btnStartGame.style.display = "block";
