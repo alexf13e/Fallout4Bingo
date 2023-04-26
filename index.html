@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@300&display=swap" rel="stylesheet">
+
+    <script src="Objective.js" defer></script>
+    <script src="main.js" defer></script>
+    <link rel="stylesheet" href="style.css">
+
+    <title>Fallout 4 Bingo</title>
+</head>
+<body>
+    <div id="dvWelcomeBG">
+        <div id="dvWelcomeBorder"></div>
+        <div id="dvWelcome">
+            <h1>Welcome to Fallout 4 Bingo</h1>
+            <p>The goal is to complete the objectives provided in the grid. Clicking an objective marks it
+                as complete, and completing any row, column or corner-to-corner diagonal wins the game and stops the timer.
+            </p>
+            <p>
+                Some objectives require doing something multiple times (such as collecting 5 of an item), these count your
+                progress each time you click the objective. If you misclick and need to undo completing an objective, either
+                click the objective again or click the minus button if it is one with more than one level of completion.
+                The game should be played on a fresh character, and started from just before leaving the vault. This means
+                you can start the timer and look at the board to have a chance to change special points if you would like, and
+                serves as a standard starting point if you want to compare times with others. There are no objectives in the
+                pre-war/vault sequence.
+            </p>
+            <p>
+                If you would like to play in real-time against a friend, I recommend looking at
+                <a href="https://bingosync.com/">Bingo Sync</a>. They don't have an existing Fallout 4 board, so you can copy
+                the objectives by clicking <a class="textButton" onclick="getObjectives()">here</a>. Then on BingoSync, scroll
+                to the bottom of the list of games and select "Custom (Advanced)". Then paste the objectives into the board
+                textbox, and set variant to "Randomized". The site doesn't have progress tracking for objectives or a
+                timer, so you'll have to keep track of those yourself.
+            </p>
+            <button onclick="hideWelcome()">Ok</button>
+        </div>
+    </div>
+    <a class="textButton" onclick="showWelcome()">Show welcome message</a>
+    <div id="dvTimer">
+        <p id="pTimer">0:00:00</p>
+        <p id="pCountdown"></p>
+        <button id="btnStartGame">New Game</button>
+        <button id="btnEndGame" class="btnEnd">End Game</button>
+        <button id="btnConfirmEnd" class="btnEnd">Confirm?</button>
+    </div>
+    <div id="dvBoard"></div>
+</body>
+</html>
