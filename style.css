@@ -26,6 +26,11 @@ button
     font-size: var(--fSize);
 }
 
+a
+{
+    color: white;
+}
+
 a:visited
 {
     color: yellow;
