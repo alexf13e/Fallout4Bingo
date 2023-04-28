@@ -84,7 +84,7 @@
         "amount": 3
     },
     {
-        "text": "Collect 2 Jangles the Moon Monkey",
+        "text": "Collect 2 Jangles the Moon Monkeys",
         "amount": 2
     },
     {
@@ -140,7 +140,7 @@
         "amount": 1
     },
     {
-        "text": "Melee kill a sentry turret",
+        "text": "Melee kill a turret",
         "amount": 1
     },
     {
@@ -172,11 +172,11 @@
         "amount": 1
     },
     {
-        "text": "Climb the steeple of 3 churches",
+        "text": "Stand at the top of the steeple of 3 churches",
         "amount": 3
     },
     {
-        "text": "Climb to the top of a lighthouse",
+        "text": "Stand at the top of a lighthouse",
         "amount": 1
     },
     {
@@ -216,7 +216,7 @@
         "amount": 1
     },
     {
-        "text": "Have 10 in 3 special stats (no buffs)",
+        "text": "Have 10 in 3 SPECIAL stats (no buffs)",
         "amount": 3
     },
     {
@@ -224,7 +224,7 @@
         "amount": 1
     },
     {
-        "text": "Change your hairstyle",
+        "text": "Change your hairstyle at a hairdresser",
         "amount": 1
     },
     {
@@ -337,6 +337,10 @@
     },
     {
         "text": "Win a brand new car!",
+        "amount": 1
+    },
+    {
+        "text": "Purchase an item from a book return terminal",
         "amount": 1
     },
     {
