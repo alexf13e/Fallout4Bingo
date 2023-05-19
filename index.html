@@ -14,7 +14,7 @@
     <title>Fallout 4 Bingo</title>
 </head>
 <body>
-    <div id="dvWelcomeBG">
+    <div id="dvWelcomeBG" class="popupBackground">
         <div id="dvWelcomeBorder"></div>
         <div id="dvWelcome">
             <h1>Welcome to Fallout 4 Bingo</h1>
@@ -34,11 +34,12 @@
             </p>
             <p>
                 If you would like to play in real-time against a friend, I recommend looking at
-                <a href="https://bingosync.com/" target="_blank" rel="noreferrer noopener">Bingo Sync</a>. They don't have an existing Fallout 4 board, so you can
-                copy the objectives by clicking <a class="textButton" onclick="getObjectives()">here</a>. Then on BingoSync, 
-                make a new room and scroll to the bottom of the list of games and select "Custom (Advanced)". Then paste
-                the objectives into the board textbox, and set variant to "Randomized". The site doesn't have progress
-                tracking for objectives or a timer, so you'd need to keep track of those yourself.
+                <a href="https://bingosync.com/" target="_blank" rel="noreferrer noopener">Bingo Sync</a>. They don't have
+                an existing Fallout 4 board, so you can copy the objectives by clicking
+                <a class="textButton" onclick="getObjectives()">here</a>. Then on BingoSync, make a new room and scroll
+                to the bottom of the list of games and select "Custom (Advanced)". Then paste the objectives into the
+                board textbox, and set variant to "Randomized". The site doesn't have progress tracking for objectives
+                or a timer, so you'd need to keep track of those yourself.
             </p>
             <p>
                 Lastly, consider trying my Geoguesser game for Fallout 4
@@ -47,7 +48,44 @@
             <button onclick="hideWelcome()">Ok</button>
         </div>
     </div>
-    <a class="textButton" onclick="showWelcome()">Show welcome message</a>
+
+    <div id="dvCustomObjectivesBG" class="popupBackground">
+        <div id="dvCustomObjectives">
+            <p>
+                Upload a file containing your own objectives, or paste them in the text box.<br>
+                Objectives must be formatted either as one line per objective (these will be created with a single level
+                of completion), or an array of JSON objects. You must enter at least 25 objectives.
+            </p>
+            <span>
+                <label for="inpObjectives">Import custom objectives</label>
+                <input type="file" id="inpFileObjectives" name="inpObjectives" accept=".txt,.json" onchange="importObjectives()">
+            </span>
+            <textarea id="inpTextObjectives"  rows="14" placeholder='Example JSON format:
+[
+    {
+        "name": "text to be shown on the objective square",
+        "amount": 3
+    },
+    {
+        "name": "text to be shown on the objective square",
+        "amount": 1
+    }
+]
+The "amount" field is optional, an objective with no amount or an amount of 1 will be set to have a single
+level of completion.'
+            ></textarea>
+            <span id="spCustomObjectiveButtons">
+                <button onclick="submitCustomObjectives()">Submit</button>
+                <button onclick="hideCustomObjectiveInput()">Cancel</button>
+            </span>
+        </div>
+    </div>
+    
+    <div id="dvTextButtons">
+        <a class="textButton" onclick="showWelcome()">Show welcome message</a><br>
+        <a class="textButton" onclick="showCustomObjectiveInput()">Use custom objectives</a>
+        <a id="btnUseDefaultObjectives" class="textButton" onclick="useDefaultObjectives()">Use default objectives (clears custom)</a>
+    </div>
     <div id="dvTimer">
         <p id="pTimer">0:00:00</p>
         <p id="pCountdown"></p>

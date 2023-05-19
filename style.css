@@ -47,6 +47,18 @@ button:hover
     cursor: pointer;
 }
 
+.popupBackground
+{
+    display: none;
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    backdrop-filter: blur(5px);
+    z-index: 2;
+}
+
 .btnEnd
 {
     display: none;
@@ -134,16 +146,14 @@ button:hover
     background-color: var(--cGreen);
 }
 
-#dvWelcomeBG
+#dvTextButtons
+{
+    position: absolute;
+}
+
+#btnUseDefaultObjectives
 {
     display: none;
-    position: fixed;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    backdrop-filter: blur(5px);
-    z-index: 2;
 }
 
 #dvWelcomeBorder
@@ -163,7 +173,6 @@ button:hover
 
 #dvWelcome
 {
-    display: none;
     position: absolute;
     width: 50%;
     left: 24%;
@@ -172,7 +181,6 @@ button:hover
     background-color: rgba(10, 88, 11, 0.7);
     z-index: 2;
 }
-
 
 #dvWelcome > button
 {
@@ -184,6 +192,32 @@ button:hover
     font-size: large;
 }
 
+#dvCustomObjectives
+{
+    display: grid;
+    position: absolute;
+    width: 70%;
+    left: 15%;
+}
+
+#dvCustomObjectives > textarea
+{
+    margin-top: 20px;
+    resize: none;
+}
+
+#spCustomObjectiveButtons
+{
+    display: flex;
+    flex-direction: row-reverse;
+}
+
+#spCustomObjectiveButtons > button
+{
+    width: 80px;
+    height: 30px;
+    font-size: large;
+}
 
 #dvTimer
 {

@@ -2,12 +2,17 @@
 const dvWelcomeBG = document.getElementById("dvWelcomeBG");
 const dvWelcomeBorder = document.getElementById("dvWelcomeBorder");
 const dvWelcome = document.getElementById("dvWelcome");
+const dvCustomObjectivesBG = document.getElementById("dvCustomObjectivesBG");
+const dvCustomObjectives = document.getElementById("dvCustomObjectives");
+const inpTextObjectives = document.getElementById("inpTextObjectives");
 const pTimer = document.getElementById("pTimer");
 const pCountdown = document.getElementById("pCountdown");
 const btnStartGame = document.getElementById("btnStartGame");
 const btnEndGame = document.getElementById("btnEndGame");
 const btnConfirmEnd = document.getElementById("btnConfirmEnd");
 const dvBoard = document.getElementById("dvBoard");
+const btnUseDefaultObjectives = document.getElementById("btnUseDefaultObjectives");
+const inpFileObjectives = document.getElementById("inpFileObjectives");
 
 
 let gameStartTime;
@@ -17,11 +22,13 @@ let timeoutConfirmEnd;
 let bingo = false;
 let board = [];
 
-let allObjectives = [];
-fetch("objectives.json")
+let currentObjectives = [];
+let defaultObjectives = [];
+fetch("defaultObjectives.json")
 .then((result) => result.json())
 .then((values) => {
-    allObjectives = values;
+    defaultObjectives = values;
+    currentObjectives = defaultObjectives;
     populateBoard(true);
 });
 
@@ -78,7 +85,7 @@ function populateBoard(empty)
         for (let i = 0; i < 25; i++)
         {
             let index = indices[i];
-            board.push(new Objective(allObjectives[index].text, allObjectives[index].amount, checkBingo));
+            board.push(new Objective(currentObjectives[index].name, currentObjectives[index].amount, checkBingo));
             dvBoard.appendChild(board[i].element);
         }
     }
@@ -88,7 +95,7 @@ function populateBoard(empty)
 function generateGameObjectiveIndices()
 {
     let indices = [];
-    for (let i = 0; i < allObjectives.length; i++) indices.push(i);
+    for (let i = 0; i < currentObjectives.length; i++) indices.push(i);
 
     let start = 0;
     let temp = 0;
@@ -225,9 +232,9 @@ function getObjectives()
 {
     let output = [];
 
-    for (let obj of allObjectives)
+    for (let obj of defaultObjectives)
     {
-        output.push({"name": obj.text});
+        output.push({"name": obj.name});
     }
 
     navigator.clipboard.writeText(JSON.stringify(output));
@@ -235,17 +242,135 @@ function getObjectives()
     alert("Objectives copied to clipboard");
 }
 
+function importObjectives()
+{
+    //https://stackoverflow.com/questions/750032/reading-file-contents-on-the-client-side-in-javascript-in-various-browsers
+    const file = inpFileObjectives.files[0];
+    if (file)
+    {
+        let reader = new FileReader();
+        reader.onload = (e) => inpTextObjectives.value = e.target.result;
+        reader.onerror = () => inpTextObjectives.value = "Error reading file...";
+        reader.readAsText(file, "UTF-8");
+    }
+}
+
+function submitCustomObjectives()
+{
+    const customObjText = inpTextObjectives.value;
+    let customObjJson = [];
+    let customObjValues = [];
+    let inputIsJson = true;
+    
+    try
+    {
+        customObjValues = JSON.parse(customObjText);
+    }
+    catch
+    {
+        console.log("Custom objectives not valid json format, reading as line separated format instead");
+        customObjValues = customObjText.split("\n");
+        inputIsJson = false;
+    }
+
+    if (customObjValues.length < 25)
+    {
+        alert("Not enough objectives provided, please enter at least 25");
+        return;
+    }
+
+    if (inputIsJson)
+    {
+        if (!Array.isArray(customObjValues))
+        {
+            alert("Please enter JSON values as an array (in square brackets, see example)");
+            return;
+        }
+
+        for (let value of customObjValues)
+        {
+            if (value.name === null) continue;
+            if (!Number.isInteger(value.amount)) continue;
+
+            let amount = Math.max(value.amount, 1);
+
+            let obj = {
+                name: value.name,
+                amount: amount
+            };
+
+            customObjJson.push(obj);
+        }
+    }
+    else
+    {
+        for (let line of customObjValues)
+        {
+            let obj = {
+                name: line,
+                amount: 1  
+            };
+
+            customObjJson.push(obj);
+        }
+    }
+
+    //check length again as some json values from the input may have been skipped for not being valid
+    if (customObjJson.length < customObjValues.length)
+    {
+        if (customObjJson.length < 25)
+        {
+            alert("Some objectives were invalid, and there were less than 25 valid objectives provided");
+            return;
+        }
+        else
+        {
+            alert("Some invalid objectives have not been included");
+        }
+    }
+
+    console.log("custom objectives:");
+    console.log(customObjJson);
+
+    currentObjectives = customObjJson;
+    showUseDefaultObjectivesButton();
+
+    hideCustomObjectiveInput();
+}
+
+function useDefaultObjectives()
+{
+    currentObjectives = defaultObjectives;
+    hideUseDefaultObjectivesButton();
+}
+
+function showUseDefaultObjectivesButton()
+{
+    btnUseDefaultObjectives.style.display = "block";
+}
+
+function hideUseDefaultObjectivesButton()
+{
+    btnUseDefaultObjectives.style.display = "none";
+}
+
 function showWelcome()
 {
     dvWelcomeBG.style.display = "block";
-    dvWelcomeBorder.style.display = "block";
-    dvWelcome.style.display = "block";
 }
 
 function hideWelcome()
 {
     dvWelcomeBG.style.display = "none";
-    dvWelcomeBorder.style.display = "none";
-    dvWelcome.style.display = "none";
     localStorage.setItem("dontShowWelcome", true);
+}
+
+function showCustomObjectiveInput()
+{
+    dvCustomObjectivesBG.style.display = "block";
+}
+
+function hideCustomObjectiveInput()
+{
+    dvCustomObjectivesBG.style.display = "none";
 }
