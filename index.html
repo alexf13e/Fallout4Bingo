@@ -15,8 +15,8 @@
 </head>
 <body>
     <div id="dvWelcomeBG" class="popupBackground">
-        <div id="dvWelcomeBorder"></div>
-        <div id="dvWelcome">
+        <div id="dvWelcome" class="popup">
+            <div class="popupBorder"></div>
             <h1>Welcome to Fallout 4 Bingo</h1>
             <p>The goal is to complete the objectives provided in the grid. Clicking an objective marks it as complete,
                 and completing any row, column or corner-to-corner diagonal wins the game and stops the timer.
@@ -45,12 +45,14 @@
                 Lastly, consider trying my Geoguesser game for Fallout 4
                 <a href="https://alexf13e.github.io/Fallout-4-Guesser/" target="_blank" rel="noreferrer noopener">here</a>
             </p>
+            <br><br>
             <button onclick="hideWelcome()">Ok</button>
         </div>
     </div>
 
     <div id="dvCustomObjectivesBG" class="popupBackground">
-        <div id="dvCustomObjectives">
+        <div id="dvCustomObjectives" class="popup">
+            <div class="popupBorder"></div>
             <p>
                 Upload a file containing your own objectives, or paste them in the text box.<br>
                 Objectives must be formatted either as one line per objective (these will be created with a single level

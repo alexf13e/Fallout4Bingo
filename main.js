@@ -63,6 +63,14 @@ btnConfirmEnd.addEventListener("click", () => {
     dvBoard.style.pointerEvents = "none";
 });
 
+dvWelcomeBG.addEventListener("click", (e) => {
+    if (e.target === dvWelcomeBG) hideWelcome();
+});
+
+dvCustomObjectivesBG.addEventListener("click", (e) => {
+    if (e.target === dvCustomObjectivesBG) hideCustomObjectiveInput();
+});
+
 
 function populateBoard(empty)
 {
