@@ -8,6 +8,7 @@ class Objective
         this.progressElement = null;
         this.element = this.createElement();
         this.checkBingo = checkBingo;
+        this.highlighted = false;
     }
 
     createElement()
@@ -18,10 +19,14 @@ class Objective
         div.classList.add("dvObjective");
         div.classList.add("dvObjectiveNotCompleted");
 
-        div.addEventListener("click", ((e)=> {
+        div.addEventListener("mouseup", ((e)=> {
             e.stopPropagation();
-            this.addProgress();
+
+            if (e.button === 0) this.addProgress();
+            else if (e.button === 2) this.toggleHighlight();
         }).bind(this));
+
+        div.oncontextmenu = () => { return false; };
 
         div.appendChild(pText);
 
@@ -39,7 +44,7 @@ class Objective
             
             btnUndoProgress.classList.add("btnUndoProgress");
             btnUndoProgress.textContent = "-";
-            btnUndoProgress.addEventListener("click", ((e) => {
+            btnUndoProgress.addEventListener("mouseup", ((e) => {
                 e.stopPropagation();
                 this.removeProgress();
             }).bind(this));
@@ -60,6 +65,8 @@ class Objective
         this.element.className = "dvObjective";
         if (this.progress === this.amount) this.element.classList.add("dvObjectiveCompleted");
         else this.element.classList.add("dvObjectiveNotCompleted");
+
+        if (this.highlighted) this.element.classList.add("dvObjectiveHighlighted");
     }
 
     addProgress()
@@ -89,5 +96,11 @@ class Objective
             this.updateDisplay();
             this.checkBingo();
         }
+    }
+
+    toggleHighlight()
+    {
+        this.highlighted = !this.highlighted;
+        this.updateDisplay();
     }
 }

@@ -4,6 +4,7 @@
     --cGreen: rgba(20, 255, 23, 0.4);
     --cPipGreen: rgb(20, 255, 23);
     --cRed: rgba(241, 83, 44, 0.8);
+    --cHighlight: rgba(232, 201, 0, 1);
     --pageBackground: rgb(25, 30, 25);
     --foregroundColour: white;
     --fSize: 2.2vmin;
@@ -168,6 +169,12 @@ button:hover
 .dvObjectiveCompleted
 {
     background-color: var(--cGreen);
+}
+
+.dvObjectiveHighlighted
+{
+    border-color: var(--cHighlight);
+    box-shadow: 0 0 10px inset var(--cHighlight);
 }
 
 #dvTextButtons

@@ -15,6 +15,7 @@ const btnUseDefaultObjectives = document.getElementById("btnUseDefaultObjectives
 const inpFileObjectives = document.getElementById("inpFileObjectives");
 
 
+
 let gameStartTime;
 let countdown;
 let intervalUpdateTimer;
@@ -33,7 +34,7 @@ fetch("defaultObjectives.json")
 });
 
 
-if (!localStorage.getItem("dontShowWelcome"))
+if (!getLocalStorage("dontShowWelcome"))
 {
     showWelcome();
 }
@@ -370,7 +371,7 @@ function showWelcome()
 function hideWelcome()
 {
     dvWelcomeBG.style.display = "none";
-    localStorage.setItem("dontShowWelcome", true);
+    setLocalStorage("dontShowWelcome", true);
 }
 
 function showCustomObjectiveInput()
@@ -381,4 +382,24 @@ function showCustomObjectiveInput()
 function hideCustomObjectiveInput()
 {
     dvCustomObjectivesBG.style.display = "none";
+}
+
+function getLocalStorage(name)
+{
+    let ls = localStorage.getItem("fallout4bingo");
+    if (ls === null) return null;
+    else ls = JSON.parse(ls);
+    
+    return ls[name];
+}
+
+function setLocalStorage(name, value)
+{
+    let ls = localStorage.getItem("fallout4bingo");
+    if (ls === null) ls = {};
+    else ls = JSON.parse(ls);
+
+    ls[name] = value;
+
+    localStorage.setItem("fallout4bingo", JSON.stringify(ls));
 }
